@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Map — Gold Price Forecasting System</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">Au</span> Gold Forecasting System</a>
+    <nav class="site-nav">
+      <a href="index.html">Overview</a>
+      <a href="framework.html">1 · Framework</a>
+      <a href="feature-causality.html">2 · Feature Causality</a>
+      <a href="system-map.html" class="active">3 · System Map</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Page 3 · Execution</div>
+    <h1>System map</h1>
+    <p class="lede">The same 9-stage pipeline from the Framework, as something you can actually work through: click a stage, pick it from the dropdown, or step with Prev/Next to see exactly what to do, with which tools, and what pitfalls to avoid.</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="callout callout-info">
+      <div class="icon">&#128506;&#65039;</div>
+      <div>
+        <h4>How to use this map</h4>
+        <p>Stay in <strong>Focused mode</strong> to work one stage at a time — check items off as you complete them (they reset on reload; this is a working view, not a saved log). Switch to <strong>Full map</strong> to see every stage at once, e.g. for printing or reviewing the whole build plan. Stage 5 connects directly to the <a href="feature-causality.html">Feature Causality Explorer</a> for the causal-reasoning deep dive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="pipeline-strip" id="pipelineStrip"></div>
+
+    <div class="stage-controls">
+      <select id="stageSelect" onchange="goToStage(this.value)"></select>
+      <button class="btn" onclick="stepStage(-1)">&larr; Prev</button>
+      <button class="btn" onclick="stepStage(1)">Next &rarr;</button>
+      <span style="flex:1"></span>
+      <button class="btn active" id="btnFocused" onclick="setMode('focused')">Focused mode</button>
+      <button class="btn" id="btnFull" onclick="setMode('full')">Show full map</button>
+    </div>
+
+    <div id="focusedView">
+      <div class="stage-panel" id="stagePanel"></div>
+    </div>
+
+    <div id="fullMapView" style="display:none;">
+      <div id="fullMapList"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="crosslink">
+      <div><strong>Back to concepts:</strong> revisit the reading list and thinking flow behind each stage.</div>
+      <a class="btn btn-primary" href="framework.html">← Open Framework</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Checklist state in this view is not saved between visits. Treat this page as a working session guide, not a permanent record — export or copy your progress elsewhere if you need to keep it.</p>
+  </div>
+</footer>
+
+<script src="assets/pipeline-data.js"></script>
+<script>
+  let currentStageId = PIPELINE_STAGES[0].id;
+  let currentMode = 'focused';
+
+  function renderPipelineStrip() {
+    const el = document.getElementById('pipelineStrip');
+    el.innerHTML = PIPELINE_STAGES.map((s, i) => `
+      ${i > 0 ? '<span class="pipeline-arrow">&rarr;</span>' : ''}
+      <div class="pipeline-node ${s.id === currentStageId ? 'active' : ''}" onclick="goToStage('${s.id}')">
+        <span class="n">${s.num}</span>${s.title}
+      </div>
+    `).join('');
+  }
+
+  function populateSelect() {
+    document.getElementById('stageSelect').innerHTML = PIPELINE_STAGES.map(s =>
+      `<option value="${s.id}">${s.num}. ${s.title}</option>`
+    ).join('');
+  }
+
+  function stagePanelHTML(stage) {
+    return `
+      <div class="flex justify-between items-center flex-wrap gap-sm" style="margin-bottom:0.8rem;">
+        <h3 style="margin:0;">${stage.num}. ${stage.title}</h3>
+        ${stage.linkTo ? `<a class="badge badge-direct" href="${stage.linkTo}">Uses causal reasoning — open Explorer &rarr;</a>` : ''}
+      </div>
+      <p class="stage-goal"><em>${stage.tagline}</em><br>${stage.goal}</p>
+
+      <div class="stage-sub">
+        <h4>What to do</h4>
+        <ul class="step-checklist">
+          ${stage.keyActions.map(a => `<li onclick="this.classList.toggle('done')"><span class="box"></span><span>${a}</span></li>`).join('')}
+        </ul>
+      </div>
+
+      <div class="stage-sub">
+        <h4>Tools &amp; libraries</h4>
+        <div class="chip-row">${stage.tools.map(t => `<span class="badge badge-cat">${t}</span>`).join('')}</div>
+      </div>
+
+      <div class="stage-sub">
+        <h4>Common pitfalls</h4>
+        <ul class="pitfall-list">${stage.pitfalls.map(p => `<li>${p}</li>`).join('')}</ul>
+      </div>
+
+      <div class="output-box"><b>Output of this stage:</b> ${stage.output}</div>
+    `;
+  }
+
+  function renderStagePanel() {
+    const stage = PIPELINE_STAGES.find(s => s.id === currentStageId);
+    document.getElementById('stagePanel').innerHTML = stagePanelHTML(stage);
+  }
+
+  function renderFullMap() {
+    document.getElementById('fullMapList').innerHTML = PIPELINE_STAGES.map(stage => `
+      <div class="full-map-stage" id="fullstage-${stage.id}">
+        ${stagePanelHTML(stage)}
+      </div>
+    `).join('');
+  }
+
+  function goToStage(id) {
+    currentStageId = id;
+    document.getElementById('stageSelect').value = id;
+    renderPipelineStrip();
+    if (currentMode === 'focused') {
+      renderStagePanel();
+      document.getElementById('stagePanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      const target = document.getElementById('fullstage-' + id);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function stepStage(delta) {
+    const idx = PIPELINE_STAGES.findIndex(s => s.id === currentStageId);
+    const next = Math.min(Math.max(idx + delta, 0), PIPELINE_STAGES.length - 1);
+    goToStage(PIPELINE_STAGES[next].id);
+  }
+
+  function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('btnFocused').classList.toggle('active', mode === 'focused');
+    document.getElementById('btnFull').classList.toggle('active', mode === 'full');
+    document.getElementById('focusedView').style.display = mode === 'focused' ? '' : 'none';
+    document.getElementById('fullMapView').style.display = mode === 'full' ? '' : 'none';
+  }
+
+  renderPipelineStrip();
+  populateSelect();
+  renderStagePanel();
+  renderFullMap();
+</script>
+
+</body>
+</html>
