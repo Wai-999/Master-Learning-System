@@ -2,7 +2,7 @@
 
 A 12-month, evidence-based self-learning system for data analytics & data science: a curriculum, eight flagship real-data projects, a learning-science-backed study method (V.A.D.A.++ — Visual map → Apply → Discuss/teach-back → Audio reinforcement), and the interactive tools to actually track it. Built as a static site (MkDocs Material) that deploys free to GitHub Pages.
 
-**Live site:** `https://wai-999.github.io/Master-Learning-System/` (goes live once Pages is enabled — see [Deploying](#deploying) below)
+**Live site:**(https://wai-999.github.io/Master-Learning-System/curriculum/index.html)
 
 ## What's in here
 
