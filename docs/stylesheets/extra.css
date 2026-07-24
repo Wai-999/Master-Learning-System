@@ -1,0 +1,215 @@
+/* ---------------------------------------------------------------
+   V.A.D.A.++ system — shared styles for dashboard, flashcards,
+   badges and project/curriculum cards. Uses Material's own CSS
+   variables so everything themes correctly in light + dark mode.
+   --------------------------------------------------------------- */
+
+/* ---- Progress bars ---- */
+.vada-progress-wrap {
+  margin: 1rem 0 1.5rem;
+}
+
+.vada-progress-track {
+  background: var(--md-default-fg-color--lightest);
+  border-radius: 999px;
+  height: 1.6rem;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.vada-progress-fill {
+  background: linear-gradient(90deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+  height: 100%;
+  width: 0%;
+  transition: width 0.4s ease;
+  border-radius: 999px;
+}
+
+.vada-progress-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color);
+  mix-blend-mode: difference;
+  filter: invert(1) grayscale(1) contrast(9);
+}
+
+/* ---- Dashboard cards ---- */
+.vada-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.vada-stat-card {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  text-align: center;
+}
+
+.vada-stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--md-primary-fg-color);
+  line-height: 1.1;
+}
+
+.vada-stat-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+  margin-top: 0.25rem;
+}
+
+.vada-btn {
+  display: inline-block;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color) !important;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none !important;
+  margin: 0.2rem 0.4rem 0.2rem 0;
+  transition: opacity 0.15s ease;
+}
+.vada-btn:hover { opacity: 0.85; }
+.vada-btn.vada-btn-ghost {
+  background: transparent;
+  color: var(--md-primary-fg-color) !important;
+  border: 1px solid var(--md-primary-fg-color);
+}
+.vada-btn.vada-btn-danger {
+  background: var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color) !important;
+}
+
+.vada-checklist-group {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  margin: 1rem 0;
+}
+.vada-checklist-group > p:first-child {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+/* task list checkboxes render inside <li> via pymdownx.tasklist */
+.md-typeset .task-list-control .task-list-indicator::before {
+  transform: scale(1.15);
+}
+
+/* ---- Badges ---- */
+.vada-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  margin: 0 0.3rem 0.3rem 0;
+}
+.vada-badge-beginner { background: #1e8e3e22; color: #1e8e3e; }
+.vada-badge-intermediate { background: #f9ab0022; color: #b06e00; }
+.vada-badge-advanced { background: #d9363022; color: #d93630; }
+.vada-badge-domain { background: var(--md-accent-fg-color--transparent, #7c4dff22); color: var(--md-primary-fg-color); }
+
+/* ---- Project / curriculum cards ---- */
+.vada-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.vada-card {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.6rem;
+  padding: 1rem 1.15rem;
+  background: var(--md-code-bg-color);
+}
+.vada-card h3 {
+  margin-top: 0 !important;
+}
+
+/* ---- Flashcards ---- */
+.vada-flashcard {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  min-height: 140px;
+  background: var(--md-code-bg-color);
+}
+
+.vada-flashcard-meta {
+  font-size: 0.72rem;
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.vada-flashcard-face {
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.vada-flashcard-controls {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.vada-rate-again { background: #d93630; }
+.vada-rate-hard { background: #f9ab00; }
+.vada-rate-good { background: #1a73e8; }
+.vada-rate-easy { background: #1e8e3e; }
+
+.vada-deck-status {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-bottom: 0.75rem;
+}
+
+.vada-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+.vada-form-row textarea,
+.vada-form-row input,
+.vada-form-row select {
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  border-radius: 0.35rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+}
+
+.vada-streak-flame {
+  font-size: 1.4rem;
+  margin-right: 0.35rem;
+}
+
+.vada-muted {
+  opacity: 0.7;
+  font-size: 0.85rem;
+}

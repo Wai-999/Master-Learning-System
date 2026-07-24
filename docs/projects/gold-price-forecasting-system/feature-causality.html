@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feature Causality Explorer — Gold Price Forecasting System</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">Au</span> Gold Forecasting System</a>
+    <nav class="site-nav">
+      <a href="index.html">Overview</a>
+      <a href="framework.html">1 · Framework</a>
+      <a href="feature-causality.html" class="active">2 · Feature Causality</a>
+      <a href="system-map.html">3 · System Map</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Page 2 · Causal Reasoning</div>
+    <h1>Feature causality explorer</h1>
+    <p class="lede">Which of your ~70 columns actually move gold prices, why, and how they're wired to each other in the real world — plus a search box that turns any feature into a small causal map.</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="callout callout-caution">
+      <div class="icon">&#9888;&#65039;</div>
+      <div>
+        <h4>Read this before the rankings below</h4>
+        <p>Everything on this page — the tiers, the scores, and the causal diagram — is a <strong>hypothesis built from macro-finance theory and the literature</strong> cited on the <a href="framework.html">Framework</a> page, not a causal structure discovered from your data. Treat it as a reasoning scaffold: a starting point to test with Granger-causality tests, causal-discovery algorithms (PC/FCI), and by comparing it against your model's real SHAP / permutation importance (Stage 9 of the Framework).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION A: Causal building blocks ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Causal building blocks</h2>
+      <p class="lede">Five ideas used throughout this page. The abstract pattern is on the left of each card; how it shows up in your dataset is below the line.</p>
+    </div>
+
+    <div class="grid grid-auto-wide">
+
+      <div class="card concept-card">
+        <span class="badge badge-chain">Chain junction</span>
+        <h3>Mediation</h3>
+        <svg viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="m-chain-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:var(--blue)"/></marker></defs>
+          <line x1="58" y1="60" x2="132" y2="60" stroke="var(--blue)" stroke-width="2.5" marker-end="url(#m-chain-a)"/>
+          <line x1="168" y1="60" x2="242" y2="60" stroke="var(--blue)" stroke-width="2.5" marker-end="url(#m-chain-a)"/>
+          <circle cx="35" cy="60" r="28" class="node-circle"/>
+          <circle cx="150" cy="60" r="28" class="node-circle"/>
+          <circle cx="265" cy="60" r="28" class="node-circle"/>
+          <text x="35" y="65" text-anchor="middle" class="node-label" font-weight="700">A</text>
+          <text x="150" y="65" text-anchor="middle" class="node-label" font-weight="700">B</text>
+          <text x="265" y="65" text-anchor="middle" class="node-label" font-weight="700">C</text>
+        </svg>
+        <p class="dim">A influences B, which in turn influences C. B <em>transmits</em> A's effect — it's a real pathway, not a coincidence.</p>
+        <div class="example"><b>In this dataset:</b> Fed Policy Stance &rarr; DXY &rarr; Gold_Price. Tighter policy strengthens the dollar, and a stronger dollar mechanically makes USD-priced gold more expensive worldwide.</div>
+      </div>
+
+      <div class="card concept-card">
+        <span class="badge badge-fork">Fork junction</span>
+        <h3>Confounding</h3>
+        <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="m-fork-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:var(--purple)"/></marker></defs>
+          <line x1="140" y1="45" x2="62" y2="93" stroke="var(--purple)" stroke-width="2.5" marker-end="url(#m-fork-a)"/>
+          <line x1="160" y1="45" x2="238" y2="93" stroke="var(--purple)" stroke-width="2.5" marker-end="url(#m-fork-a)"/>
+          <circle cx="150" cy="30" r="28" class="node-circle"/>
+          <circle cx="40" cy="108" r="28" class="node-circle"/>
+          <circle cx="260" cy="108" r="28" class="node-circle"/>
+          <text x="150" y="35" text-anchor="middle" class="node-label" font-weight="700">B</text>
+          <text x="40" y="113" text-anchor="middle" class="node-label" font-weight="700">A</text>
+          <text x="260" y="113" text-anchor="middle" class="node-label" font-weight="700">C</text>
+        </svg>
+        <p class="dim">B independently causes both A and C. A and C will look correlated with each other — but that's <em>because of B</em>, not because one causes the other.</p>
+        <div class="example"><b>In this dataset:</b> a Risk-Off Shock drives both VIXCLS and Gold_Price up together. VIX doesn't cause gold to rise; both react to the same shock.</div>
+      </div>
+
+      <div class="card concept-card">
+        <span class="badge badge-collider">Collider junction</span>
+        <h3>Selection bias</h3>
+        <svg viewBox="0 0 300 140" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="m-coll-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:var(--red)"/></marker></defs>
+          <line x1="62" y1="45" x2="140" y2="93" stroke="var(--red)" stroke-width="2.5" marker-end="url(#m-coll-a)"/>
+          <line x1="238" y1="45" x2="160" y2="93" stroke="var(--red)" stroke-width="2.5" marker-end="url(#m-coll-a)"/>
+          <circle cx="40" cy="30" r="28" class="node-circle"/>
+          <circle cx="260" cy="30" r="28" class="node-circle"/>
+          <circle cx="150" cy="108" r="28" class="node-circle"/>
+          <text x="40" y="35" text-anchor="middle" class="node-label" font-weight="700">A</text>
+          <text x="260" y="35" text-anchor="middle" class="node-label" font-weight="700">B</text>
+          <text x="150" y="113" text-anchor="middle" class="node-label" font-weight="700">C</text>
+        </svg>
+        <p class="dim">A and B independently cause C. They may be totally unrelated — but if you filter or condition your analysis on C, you can manufacture a fake link between A and B.</p>
+        <div class="example"><b>In this dataset:</b> Fed Policy and a Risk-Off Shock both act on Gold_Price. Slicing your data to "days Gold moved &gt;2%" to study the link between rate surprises and geopolitics can invent a correlation that isn't really there.</div>
+      </div>
+
+      <div class="card concept-card">
+        <span class="badge badge-direct">Bayesian network</span>
+        <h3>Wiring it all together</h3>
+        <svg viewBox="0 0 300 165" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="m-bn-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:var(--gold-bright)"/></marker></defs>
+          <line x1="55" y1="35" x2="128" y2="76" stroke="var(--gold-bright)" stroke-width="2" marker-end="url(#m-bn-a)"/>
+          <line x1="245" y1="35" x2="172" y2="76" stroke="var(--gold-bright)" stroke-width="2" marker-end="url(#m-bn-a)"/>
+          <line x1="150" y1="102" x2="150" y2="132" stroke="var(--gold-bright)" stroke-width="2" marker-end="url(#m-bn-a)"/>
+          <circle cx="40" cy="25" r="26" class="node-circle"/>
+          <circle cx="260" cy="25" r="26" class="node-circle"/>
+          <circle cx="150" cy="90" r="26" class="node-circle"/>
+          <circle cx="150" cy="148" r="26" class="node-circle-center"/>
+          <text x="40" y="21" text-anchor="middle" class="node-label" font-size="9">Fed</text>
+          <text x="40" y="33" text-anchor="middle" class="node-label" font-size="9">Policy</text>
+          <text x="260" y="21" text-anchor="middle" class="node-label" font-size="9">Inflation</text>
+          <text x="260" y="33" text-anchor="middle" class="node-label" font-size="9">Regime</text>
+          <text x="150" y="86" text-anchor="middle" class="node-label" font-size="9">Real</text>
+          <text x="150" y="98" text-anchor="middle" class="node-label" font-size="9">Yield</text>
+          <text x="150" y="152" text-anchor="middle" class="node-label-center" font-size="10">Gold</text>
+        </svg>
+        <p class="dim">Chain every fork, chain, and collider together across all variables and you get a directed acyclic graph (DAG) — add a probability table at each node and it's a Bayesian network, which supports formal queries like "P(Gold up | DXY down, VIX up)".</p>
+        <div class="example"><b>Tools:</b> <code>networkx</code> to draw it, <code>pgmpy</code> / <code>bnlearn</code> to fit conditional probability tables and query it, <code>causalnex</code> / <code>dowhy</code> for causal-effect estimation.</div>
+      </div>
+
+      <div class="card concept-card">
+        <span class="badge badge-peer">Cause &amp; effect</span>
+        <h3>Correlation, prediction, causation</h3>
+        <div class="grid grid-2" style="margin:0.9rem 0; gap:0.7rem;">
+          <div class="card card-tight" style="background:var(--bg-elev-2);">
+            <strong style="font-size:0.85rem;">Predictive (Granger)</strong>
+            <p class="dim" style="font-size:0.82rem; margin:0.3rem 0 0;">"X helps predict Y" — X's past values reduce forecast error for Y. Easy to test, but silent on <em>why</em>, and blind to shared confounders.</p>
+          </div>
+          <div class="card card-tight" style="background:var(--bg-elev-2);">
+            <strong style="font-size:0.85rem;">Structural (interventional)</strong>
+            <p class="dim" style="font-size:0.82rem; margin:0.3rem 0 0;">"If we intervened on X, Y would change" — the actual claim gold traders care about. Requires a causal model or a natural experiment to identify.</p>
+          </div>
+        </div>
+        <p class="dim">A famous way to get a structural answer in macro-finance: use narrow, high-frequency windows around FOMC surprises, where almost nothing else could plausibly be moving markets at that instant.</p>
+        <div class="example"><b>Further reading:</b> Granger (1969) for the predictive definition; Kuttner (2001) for the FOMC-surprise identification approach; Pearl &amp; Mackenzie (2018) for why the distinction matters.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION B: Ranking ============ -->
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Feature impact ranking</h2>
+      <p class="lede">Fundamental and cross-asset drivers, tiered by how directly and reliably theory says they move gold — followed by the technical/autoregressive indicators, scored separately since they measure something different (short-horizon predictive relevance, not causal impact).</p>
+    </div>
+
+    <p class="dim">Grouping note: for each cross-asset instrument (CPI_Proxy, DXY, SP500, Crude_Oil, Silver, Platinum) the table scores the <code>_Close</code> series as the primary signal. Treat the matching <code>_Open</code>/<code>_High</code>/<code>_Low</code> as a same-asset realized-range (volatility) proxy and <code>_Volume</code> as a secondary conviction signal, rather than ranking all 30 OHLCV columns as independent causal features.</p>
+
+    <div class="filter-bar" id="filterBar"></div>
+
+    <div class="table-wrap">
+      <table class="rank-table">
+        <thead>
+          <tr>
+            <th onclick="setSort('name')">Feature</th>
+            <th>Category</th>
+            <th onclick="setSort('tier')">Tier</th>
+            <th>Direction on Gold</th>
+            <th onclick="setSort('score')">Impact score*</th>
+            <th>Why it matters</th>
+          </tr>
+        </thead>
+        <tbody id="rankTableBody"></tbody>
+      </table>
+    </div>
+    <p class="small">*Illustrative, theory-based prior (0–100), not a fitted statistic — validate against your own SHAP / permutation importance. Click a feature name to open it in the explorer below.</p>
+
+    <div class="callout callout-warn" style="margin-top:1.6rem;">
+      <div class="icon">&#128197;</div>
+      <div>
+        <h4>About the *_is_filled columns</h4>
+        <p>Every FRED-sourced indicator above (ANFCI, CPIAUCSL, DFII10, DGS10, DGS2, FEDFUNDS, M2SL, NFCI, RECPROUSM156N, STLFSI4, T10Y2Y, T10YIE, VIXCLS) has a companion <code>_is_filled</code> column. A filled value is carried forward from the last real release — common for monthly series (CPIAUCSL, M2SL, FEDFUNDS, RECPROUSM156N) or weekly series (NFCI, ANFCI, STLFSI4) mapped onto a daily grid — it is <em>not</em> a new observation. Never assume a forward-filled value was known earlier than its true release date (see Stage 3 of the <a href="framework.html">Framework</a>), and consider adding "days since last real update" as its own feature.</p>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:2.2rem;">
+      <h3>Gold technical / autoregressive indicators</h3>
+      <p class="lede">Computed purely from Gold_Price's own history — valuable for short-horizon momentum and mean-reversion signal, but not "causes" of gold in the real-world sense above. Must be lagged to the forecast origin or they leak the future.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="rank-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>What it measures</th>
+            <th>Why / mechanism</th>
+            <th>Short-horizon relevance*</th>
+          </tr>
+        </thead>
+        <tbody id="techTableBody"></tbody>
+      </table>
+    </div>
+    <p class="small">*Illustrative relevance for a 10–15 day momentum/mean-reversion signal — a different scale from the fundamental impact score above, not directly comparable to it.</p>
+  </div>
+</section>
+
+<!-- ============ SECTION C: Explorer ============ -->
+<section class="section" id="explorerSection">
+  <div class="container">
+    <div class="section-head">
+      <h2>Explore feature connections</h2>
+      <p class="lede">Search any feature — or any of the four latent regimes — to see what causes it, what it causes, and what it's merely correlated with.</p>
+    </div>
+
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Search a feature, e.g. DXY, VIXCLS, Silver, Monetary Policy…" autocomplete="off">
+      <div class="search-results" id="searchResults"></div>
+    </div>
+    <div class="suggest-row">
+      <span class="dim small">Try:</span>
+      <span class="suggest-chip" onclick="selectNode('Gold_Price')">Gold_Price (flagship collider)</span>
+      <span class="suggest-chip" onclick="selectNode('DFII10')">DFII10</span>
+      <span class="suggest-chip" onclick="selectNode('VIXCLS')">VIXCLS</span>
+      <span class="suggest-chip" onclick="selectNode('DXY')">DXY</span>
+      <span class="suggest-chip" onclick="selectNode('Silver')">Silver</span>
+      <span class="suggest-chip" onclick="selectNode('lat_risk')">Risk-Off Shock</span>
+    </div>
+
+    <div class="explorer-grid" style="margin-top:1.4rem;">
+      <div class="card explorer-detail" id="explorerDetail"></div>
+      <div>
+        <div class="egograph-wrap">
+          <div id="egoGraph"></div>
+        </div>
+        <div class="legend-row">
+          <span class="legend-item"><span class="legend-swatch chain"></span>Chain</span>
+          <span class="legend-item"><span class="legend-swatch fork"></span>Fork</span>
+          <span class="legend-item"><span class="legend-swatch collider"></span>Collider</span>
+          <span class="legend-item"><span class="legend-swatch definitional"></span>Definitional</span>
+          <span class="legend-item"><span class="legend-swatch autoregressive"></span>Autoregressive</span>
+          <span class="legend-item"><span class="legend-swatch direct"></span>Direct</span>
+        </div>
+        <p class="small" style="margin-top:0.5rem;">Solid line + arrowhead = a modeled causal direction. Dashed line = correlated only, no direct arrow — color still shows which shared mechanism explains the correlation.</p>
+        <ul class="connection-list" id="connectionList"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="crosslink">
+      <div><strong>Next:</strong> turn this reasoning into an ordered, checklist-driven build plan.</div>
+      <a class="btn btn-primary" href="system-map.html">Open System Map →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>The causal diagram on this page is a theory-driven hypothesis for reasoning and feature design, not a proven or fitted causal model. Validate against your own data before relying on it.</p>
+  </div>
+</footer>
+
+<script src="assets/causal-data.js"></script>
+<script>
+  // ---------- helpers ----------
+  function categoryLabel(key) {
+    const c = CATEGORIES.find(c => c.key === key);
+    return c ? c.label : key;
+  }
+
+  function wrapLabel(label, maxLine) {
+    maxLine = maxLine || 12;
+    if (label.length <= maxLine) return [label];
+    const words = label.split(' ');
+    let l1 = '', l2 = '';
+    const half = Math.ceil(label.length / 2);
+    words.forEach(w => {
+      if (!l2 && (l1 + ' ' + w).trim().length <= half + 2) l1 = (l1 + ' ' + w).trim();
+      else l2 = (l2 + ' ' + w).trim();
+    });
+    return l2 ? [l1, l2] : [l1];
+  }
+
+  function getConnectionsFor(nodeId) {
+    const seen = new Set();
+    const result = [];
+    const node = CAUSAL_NODES_BY_ID[nodeId];
+    (node.connections || []).forEach(c => {
+      seen.add(nodeId + '|' + c.to);
+      result.push({ to: c.to, dir: c.dir, junction: c.junction, note: c.note });
+    });
+    CAUSAL_NODES.forEach(other => {
+      if (other.id === nodeId) return;
+      (other.connections || []).forEach(c => {
+        if (c.to !== nodeId) return;
+        const key = nodeId + '|' + other.id;
+        if (seen.has(key)) return;
+        seen.add(key);
+        const flipped = c.dir === 'to' ? 'from' : (c.dir === 'from' ? 'to' : 'peer');
+        result.push({ to: other.id, dir: flipped, junction: c.junction, note: c.note });
+      });
+    });
+    return result;
+  }
+
+  // ---------- concept cards are static HTML above ----------
+
+  // ---------- ranking table ----------
+  let currentFilter = 'all';
+  let sortKey = 'tier';
+  let sortDir = 1;
+
+  function fundamentalNodes() {
+    return CAUSAL_NODES.filter(n => typeof n.tier === 'number');
+  }
+
+  function renderFilterBar() {
+    const cats = [{ key: 'all', label: 'All' }].concat(
+      CATEGORIES.filter(c => ['macro', 'inflation', 'stress', 'crossasset'].includes(c.key))
+    );
+    document.getElementById('filterBar').innerHTML = cats.map(c =>
+      `<button class="btn ${currentFilter === c.key ? 'active' : ''}" onclick="setFilter('${c.key}')">${c.label}</button>`
+    ).join('');
+  }
+
+  function setFilter(key) { currentFilter = key; renderFilterBar(); renderRankTable(); }
+  function setSort(key) {
+    if (sortKey === key) sortDir *= -1; else { sortKey = key; sortDir = 1; }
+    renderRankTable();
+  }
+
+  function dirArrow(direction) {
+    if (direction === 'up') return '<span class="dir-up">&#9650; positive</span>';
+    if (direction === 'down') return '<span class="dir-down">&#9660; negative</span>';
+    return '<span class="dir-mixed">&#8596; regime-dependent</span>';
+  }
+
+  function renderRankTable() {
+    let rows = fundamentalNodes();
+    if (currentFilter !== 'all') rows = rows.filter(n => n.category === currentFilter);
+    rows = rows.slice().sort((a, b) => {
+      let av, bv;
+      if (sortKey === 'tier') { av = a.tier; bv = b.tier; }
+      else if (sortKey === 'score') { av = a.score; bv = b.score; }
+      else { av = a.label; bv = b.label; }
+      if (av < bv) return -1 * sortDir;
+      if (av > bv) return 1 * sortDir;
+      return b.score - a.score;
+    });
+    document.getElementById('rankTableBody').innerHTML = rows.map(n => `
+      <tr>
+        <td class="feat-name"><button onclick="jumpToExplorer('${n.id}')">${n.id}</button></td>
+        <td><span class="badge badge-cat">${categoryLabel(n.category)}</span></td>
+        <td><span class="badge badge-tier${n.tier}">Tier ${n.tier}</span></td>
+        <td>${dirArrow(n.direction)}</td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar-track"><div class="score-bar-fill" style="width:${n.score}%"></div></div>
+            <span class="score-num">${n.score}</span>
+          </div>
+        </td>
+        <td class="dim">${n.summary}</td>
+      </tr>
+    `).join('');
+  }
+
+  function renderTechTable() {
+    const rows = CAUSAL_NODES.filter(n => n.tier === 'technical').sort((a, b) => b.score - a.score);
+    document.getElementById('techTableBody').innerHTML = rows.map(n => `
+      <tr>
+        <td class="feat-name"><button onclick="jumpToExplorer('${n.id}')">${n.id}</button></td>
+        <td class="dim">${n.summary}</td>
+        <td class="dim">${n.mechanism}</td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar-track"><div class="score-bar-fill tech" style="width:${n.score}%"></div></div>
+            <span class="score-num">${n.score}</span>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function jumpToExplorer(id) {
+    selectNode(id);
+    document.getElementById('explorerSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ---------- explorer: detail panel ----------
+  function renderDetail(node) {
+    let tierBadge;
+    if (node.tier === 'latent') tierBadge = `<span class="badge badge-peer">Latent / unobserved regime</span>`;
+    else if (node.tier === 'target') tierBadge = `<span class="badge badge-target">Forecast target</span>`;
+    else if (node.tier === 'technical') tierBadge = `<span class="badge badge-tech">Technical / autoregressive</span>`;
+    else tierBadge = `<span class="badge badge-tier${node.tier}">Tier ${node.tier}</span>`;
+
+    const dirHtml = node.direction ? dirArrow(node.direction) : '';
+
+    let scoreHtml = '';
+    if (node.score !== null && node.score !== undefined) {
+      scoreHtml = `<div class="score-bar-wrap" style="max-width:240px; margin:0.7rem 0 1rem;">
+        <div class="score-bar-track"><div class="score-bar-fill ${node.scoreType === 'technical' ? 'tech' : ''}" style="width:${node.score}%"></div></div>
+        <span class="score-num">${node.score}</span>
+      </div>`;
+    }
+
+    document.getElementById('explorerDetail').innerHTML = `
+      <h3>${node.label}</h3>
+      <div class="meta-row">
+        <span class="badge badge-cat">${categoryLabel(node.category)}</span>
+        ${tierBadge}
+        ${dirHtml}
+      </div>
+      ${scoreHtml}
+      <p>${node.summary}</p>
+      <div class="mech-label">Real-world mechanism</div>
+      <p>${node.mechanism}</p>
+      ${node.dataNote ? `<div class="callout callout-warn" style="margin-top:0.9rem;"><div class="icon">&#9888;&#65039;</div><div><p style="margin:0;">${node.dataNote}</p></div></div>` : ''}
+    `;
+  }
+
+  function renderConnectionList(conns, overflowCount) {
+    const el = document.getElementById('connectionList');
+    if (!conns.length) { el.innerHTML = '<li>No modeled connections for this node.</li>'; return; }
+    let html = conns.map(c => {
+      const other = CAUSAL_NODES_BY_ID[c.to];
+      const arrow = c.dir === 'to' ? '&rarr;' : c.dir === 'from' ? '&larr;' : '&harr;';
+      const meta = JUNCTION_META[c.junction] || JUNCTION_META.peer;
+      return `<li onclick="selectNode('${c.to}')">
+        <span class="arrow-ico">${arrow}</span>
+        <span><span class="badge ${meta.badge}" style="margin-right:0.4rem;">${meta.label}</span><b>${other.shortLabel || other.label}</b> — ${c.note}</span>
+      </li>`;
+    }).join('');
+    if (overflowCount > 0) {
+      html += `<li style="cursor:default; justify-content:center;"><span class="dim">+${overflowCount} more connection${overflowCount === 1 ? '' : 's'} — see the ranking table above for the full feature list.</span></li>`;
+    }
+    el.innerHTML = html;
+  }
+
+  // ---------- explorer: ego graph SVG ----------
+  function renderEgoGraph(node, shown) {
+    const W = 620, H = 520, cx = W / 2, cy = H / 2 - 4;
+    const R = shown.length > 6 ? 208 : 186;
+    const centerR = 44, outerR = 32;
+
+    const markerDefs = ['chain', 'fork', 'collider', 'definitional', 'autoregressive', 'direct'].map(t => {
+      const color = { chain: 'var(--blue)', fork: 'var(--purple)', collider: 'var(--red)', definitional: 'var(--teal)', autoregressive: 'var(--orange)', direct: 'var(--gold-bright)' }[t];
+      return `<marker id="arrow-${t}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" style="fill:${color}"/></marker>`;
+    }).join('');
+
+    let edgesSvg = '', nodesSvg = '';
+
+    shown.forEach((c, i) => {
+      const angle = -Math.PI / 2 + i * (2 * Math.PI / shown.length);
+      const ox = cx + R * Math.cos(angle);
+      const oy = cy + R * Math.sin(angle);
+      const other = CAUSAL_NODES_BY_ID[c.to];
+      const dx = ox - cx, dy = oy - cy, dist = Math.hypot(dx, dy) || 1;
+      const ux = dx / dist, uy = dy / dist;
+
+      let x1, y1, x2, y2, marker = '', dash = '';
+      if (c.dir === 'peer') {
+        x1 = cx + ux * centerR; y1 = cy + uy * centerR;
+        x2 = ox - ux * outerR; y2 = oy - uy * outerR;
+        dash = 'stroke-dasharray="5 4"';
+      } else if (c.dir === 'to') {
+        x1 = cx + ux * centerR; y1 = cy + uy * centerR;
+        x2 = ox - ux * (outerR + 9); y2 = oy - uy * (outerR + 9);
+        marker = `marker-end="url(#arrow-${c.junction})"`;
+      } else {
+        x1 = ox - ux * outerR; y1 = oy - uy * outerR;
+        x2 = cx + ux * (centerR + 9); y2 = cy + uy * (centerR + 9);
+        marker = `marker-end="url(#arrow-${c.junction})"`;
+      }
+
+      edgesSvg += `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="edge-${c.junction}" stroke-width="2.2" ${dash} ${marker}></line>`;
+
+      const circleClass = other.kind === 'latent' ? 'node-circle-latent' : (other.kind === 'target' ? 'node-circle-center' : 'node-circle');
+      const lines = wrapLabel(other.shortLabel || other.label, 13);
+      const labelY = oy + outerR + 15;
+
+      nodesSvg += `
+        <g style="cursor:pointer;" onclick="selectNode('${other.id}')">
+          <circle cx="${ox.toFixed(1)}" cy="${oy.toFixed(1)}" r="${outerR}" class="${circleClass}"></circle>
+          <text x="${ox.toFixed(1)}" y="${labelY.toFixed(1)}" text-anchor="middle" class="node-label">
+            ${lines.map((l, idx) => `<tspan x="${ox.toFixed(1)}" dy="${idx === 0 ? 0 : 12}">${l}</tspan>`).join('')}
+          </text>
+        </g>`;
+    });
+
+    const centerLines = wrapLabel(node.shortLabel || node.label, 14);
+    const centerSvg = `
+      <circle cx="${cx}" cy="${cy}" r="${centerR}" class="node-circle-center"></circle>
+      <text x="${cx}" y="${cy + 4}" text-anchor="middle" class="node-label-center">
+        ${centerLines.map((l, idx) => `<tspan x="${cx}" dy="${idx === 0 ? (centerLines.length > 1 ? -6 : 0) : 14}">${l}</tspan>`).join('')}
+      </text>`;
+
+    document.getElementById('egoGraph').innerHTML = `
+      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+        <defs>${markerDefs}</defs>
+        ${edgesSvg}
+        ${centerSvg}
+        ${nodesSvg}
+      </svg>`;
+  }
+
+  // ---------- explorer: selection + search ----------
+  function selectNode(id) {
+    const node = CAUSAL_NODES_BY_ID[id];
+    if (!node) return;
+    renderDetail(node);
+    const all = getConnectionsFor(id);
+    const shown = all.slice(0, 8);
+    renderEgoGraph(node, shown);
+    renderConnectionList(shown, all.length - shown.length);
+    document.getElementById('searchInput').value = node.label;
+    document.getElementById('searchResults').classList.remove('open');
+  }
+
+  function initSearch() {
+    const input = document.getElementById('searchInput');
+    const results = document.getElementById('searchResults');
+    input.addEventListener('input', () => {
+      const q = input.value.trim().toLowerCase();
+      if (!q) { results.classList.remove('open'); return; }
+      const matches = CAUSAL_NODES.filter(n =>
+        n.label.toLowerCase().includes(q) || n.id.toLowerCase().includes(q)
+      ).slice(0, 8);
+      results.innerHTML = matches.length
+        ? matches.map(n => `<div class="res-item" onclick="selectNode('${n.id}')"><span>${n.label}</span><span class="res-cat">${categoryLabel(n.category)}</span></div>`).join('')
+        : '<div class="res-item"><span>No matches</span></div>';
+      results.classList.add('open');
+    });
+    input.addEventListener('focus', () => { if (input.value.trim()) results.classList.add('open'); });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-wrap')) results.classList.remove('open');
+    });
+  }
+
+  // ---------- init ----------
+  renderFilterBar();
+  renderRankTable();
+  renderTechTable();
+  initSearch();
+  selectNode('Gold_Price');
+</script>
+
+</body>
+</html>

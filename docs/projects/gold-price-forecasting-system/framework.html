@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forecasting Framework — Gold Price Forecasting System</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">Au</span> Gold Forecasting System</a>
+    <nav class="site-nav">
+      <a href="index.html">Overview</a>
+      <a href="framework.html" class="active">1 · Framework</a>
+      <a href="feature-causality.html">2 · Feature Causality</a>
+      <a href="system-map.html">3 · System Map</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Page 1 · Thinking Flow</div>
+    <h1>End-to-end forecasting framework</h1>
+    <p class="lede">A 9-stage thinking flow from raw data to a validated 10–15 trading-day gold price forecast — what to think about at each stage, the mistakes that quietly ruin financial forecasts, and exactly which book or paper to read to go deeper.</p>
+    <div class="toc-strip" id="tocStrip"></div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="callout callout-info">
+      <div class="icon">&#128161;</div>
+      <div>
+        <h4>How to use this page</h4>
+        <p>Work top to bottom the first time through — each stage builds on the last. Badges under "Key concepts" tag the ideas introduced at that stage; the "Recommended reading" links jump to full citations at the bottom. Stage 5 (causal reasoning) and Stage 9 (explainability) link out to the <a href="feature-causality.html">Feature Causality Explorer</a>, which works through this exact dataset in detail. For a checklist version of every stage you can step through with a dropdown, see the <a href="system-map.html">System Map</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<section class="section" id="references">
+  <div class="container">
+    <div class="section-head">
+      <h2>References</h2>
+      <p class="lede">Every citation below was checked against the publisher, journal, SSRN, or NBER record. Where a free version exists, "View →" links to it.</p>
+    </div>
+    <div id="refList"></div>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="container">
+    <div class="crosslink">
+      <div><strong>Next:</strong> see which of these features matter most, why, and how they're causally wired together.</div>
+      <a class="btn btn-primary" href="feature-causality.html">Open Feature Causality Explorer →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>This framework reflects general macro-finance and forecasting-methodology practice. It is an educational planning tool, not financial advice, and does not guarantee forecast accuracy.</p>
+  </div>
+</footer>
+
+<script src="assets/pipeline-data.js"></script>
+<script>
+  function renderTOC() {
+    const el = document.getElementById('tocStrip');
+    el.innerHTML = PIPELINE_STAGES.map(s =>
+      `<a class="toc-pill" href="#stage-${s.id}"><b>${s.num}</b>${s.title}</a>`
+    ).join('');
+  }
+
+  function renderTimeline() {
+    const el = document.getElementById('timeline');
+    el.innerHTML = PIPELINE_STAGES.map(stage => `
+      <div class="stage" id="stage-${stage.id}">
+        <div class="stage-num">${stage.num}</div>
+        <div class="stage-body">
+          <h3>${stage.title}</h3>
+          <p class="stage-goal"><em>${stage.tagline}</em><br>${stage.goal}</p>
+
+          <div class="stage-sub">
+            <h4>Key concepts</h4>
+            <div class="chip-row">
+              ${stage.concepts.map(c => `<span class="badge badge-cat">${c}</span>`).join('')}
+            </div>
+          </div>
+
+          <div class="stage-sub">
+            <h4>Common pitfalls</h4>
+            <ul class="pitfall-list">
+              ${stage.pitfalls.map(p => `<li>${p}</li>`).join('')}
+            </ul>
+          </div>
+
+          <div class="stage-sub">
+            <h4>Recommended reading</h4>
+            <ul class="reading-list">
+              ${stage.reading.map(key => {
+                const r = BIBLIOGRAPHY[key];
+                return `<li><a href="#ref-${key}">${r.authors} (${r.year}) — ${r.title}</a></li>`;
+              }).join('')}
+            </ul>
+          </div>
+
+          ${stage.linkTo ? `
+          <div class="crosslink">
+            <div><strong>Go deeper:</strong> this stage has a full worked example on your actual dataset.</div>
+            <a class="btn btn-primary" href="${stage.linkTo}">Open Feature Causality Explorer →</a>
+          </div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderReferences() {
+    const el = document.getElementById('refList');
+    el.innerHTML = BIBLIOGRAPHY_THEME_ORDER.map(theme => {
+      const entries = Object.entries(BIBLIOGRAPHY).filter(([k, v]) => v.theme === theme);
+      return `
+        <div class="ref-group">
+          <h3>${theme}</h3>
+          ${entries.map(([key, r]) => `
+            <div class="ref-item" id="ref-${key}">
+              <span class="ref-level">${r.type} · ${r.level}</span>
+              <div>${r.authors} (${r.year}). <span class="ref-title">${r.title}</span>${r.url ? ` — <a href="${r.url}" target="_blank" rel="noopener">View &rarr;</a>` : ''}</div>
+              <div class="ref-meta">${r.venue}</div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }).join('');
+  }
+
+  renderTOC();
+  renderTimeline();
+  renderReferences();
+</script>
+
+</body>
+</html>

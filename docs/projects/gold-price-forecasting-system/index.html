@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gold Price Forecasting System — Overview</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="index.html"><span class="brand-mark">Au</span> Gold Forecasting System</a>
+    <nav class="site-nav">
+      <a href="index.html" class="active">Overview</a>
+      <a href="framework.html">1 · Framework</a>
+      <a href="feature-causality.html">2 · Feature Causality</a>
+      <a href="system-map.html">3 · System Map</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Gold Price Forecasting</div>
+    <h1>A causally-informed system for 10–15 day gold price forecasting</h1>
+    <p class="lede">Three linked pages take you from raw data to a validated forecast: the end-to-end thinking flow with a curated reading list, a feature-by-feature causal explorer for this exact dataset, and an actionable system map you can step through in order.</p>
+    <p class="lede">This is a planning and reasoning framework, not a live trading model — it is meant to structure how you build and question your own forecasting pipeline.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Your dataset, at a glance</h2>
+      <p class="lede">~70 columns across four families. Every page in this system refers back to these same groups.</p>
+    </div>
+    <div class="grid grid-auto">
+      <div class="card card-hover">
+        <h3>Gold target &amp; technicals</h3>
+        <p class="dim">Gold_Close / Gold_Price, Gold_Open, Gold_High, Gold_Low, Gold_Volume, plus 10 derived indicators (daily_return, volatility, ma_7/30/90, rsi, macd, macd_signal, bollinger bands).</p>
+        <span class="badge badge-target">16 columns · target + autoregressive</span>
+      </div>
+      <div class="card card-hover">
+        <h3>Cross-asset markets</h3>
+        <p class="dim">Full OHLCV for CPI_Proxy, DXY, SP500, Crude Oil, Silver, and Platinum — six instruments that carry monetary, inflation, growth, and precious-metal signal.</p>
+        <span class="badge badge-cat">30 columns · 6 instruments</span>
+      </div>
+      <div class="card card-hover">
+        <h3>Macro &amp; financial indicators</h3>
+        <p class="dim">13 FRED series — rates (DFII10, DGS10, DGS2, FEDFUNDS, T10Y2Y), inflation (CPIAUCSL, T10YIE, M2SL), stress (VIXCLS, NFCI, ANFCI, STLFSI4), recession odds (RECPROUSM156N) — each with an *_is_filled flag.</p>
+        <span class="badge badge-cat">26 columns · 13 series</span>
+      </div>
+      <div class="card card-hover">
+        <h3>Forecast objective</h3>
+        <p class="dim">Predict Gold_Close / Gold_Price 10–15 trading days ahead, evaluated against naive baselines, with explicit uncertainty rather than a single confident number.</p>
+        <span class="badge badge-direct">Horizon: 10–15 trading days</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Where to go</h2>
+      <p class="lede">The three pages are wired together — each links forward and back to the others where it matters.</p>
+    </div>
+    <div class="grid grid-3">
+      <a href="framework.html" style="text-decoration:none; color:inherit;">
+        <div class="card card-hover nav-card">
+          <div class="num">01</div>
+          <h3>Forecasting Framework</h3>
+          <p class="dim">The full end-to-end thinking flow — problem framing, data understanding, causal reasoning, feature engineering, modeling, validation, and deployment — as a 9-stage timeline. Every stage names the concepts involved and exactly which books or papers to read.</p>
+          <div class="go">Open the framework →</div>
+        </div>
+      </a>
+      <a href="feature-causality.html" style="text-decoration:none; color:inherit;">
+        <div class="card card-hover nav-card">
+          <div class="num">02</div>
+          <h3>Feature Causality Explorer</h3>
+          <p class="dim">Chain, fork, collider, and Bayesian-network reasoning applied directly to your columns. Ranks every feature's likely impact on gold, explains the real-world mechanism, and lets you search any feature to see exactly how it's wired to the rest.</p>
+          <div class="go">Open the explorer →</div>
+        </div>
+      </a>
+      <a href="system-map.html" style="text-decoration:none; color:inherit;">
+        <div class="card card-hover nav-card">
+          <div class="num">03</div>
+          <h3>System Map</h3>
+          <p class="dim">The same 9 stages as an actionable, dropdown-driven map — jump to any stage to see its checklist, tools, common pitfalls, and output, or expand the whole pipeline at once.</p>
+          <div class="go">Open the system map →</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p><strong>Scope note:</strong> The causal diagram in this system encodes macro-finance theory and the literature cited on Page 1 — it is a reasoning hypothesis to test against your own data (Granger causality, causal discovery, SHAP-vs-theory comparisons), not a statistically proven causal structure. Nothing here is financial advice.</p>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+site_name: V.A.D.A.++ Data Science Learning System
+site_description: >-
+  A 12-month, evidence-based self-learning system for data analytics & data science —
+  built on retrieval practice, spacing, interleaving, teach-back, and shipped portfolio projects.
+site_author: Wai
+repo_name: vada-data-science-system
+repo_url: https://github.com/your-username/vada-data-science-system
+edit_uri: edit/main/docs/
+use_directory_urls: false
+
+theme:
+  name: material
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - navigation.instant
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+  icon:
+    repo: fontawesome/brands/github
+
+extra_css:
+  - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/progress-tracker.js
+  - javascripts/srs-deck.js
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Methodology:
+      - Overview — V.A.D.A.++: methodology/index.md
+      - Retrieval & Spacing: methodology/retrieval-and-spacing.md
+      - Interleaving & Desirable Difficulty: methodology/interleaving-and-desirable-difficulty.md
+      - Teach-Back & Dual Coding: methodology/teach-back-and-dual-coding.md
+      - Deliberate Practice & Calibration: methodology/deliberate-practice-and-calibration.md
+  - Curriculum:
+      - Overview & 12-Month Map: curriculum/index.md
+      - "Month 1 — Python & pandas": curriculum/month-01-python-pandas.md
+      - "Month 2 — SQL for Analytics": curriculum/month-02-sql-analytics.md
+      - "Month 3 — Visualization & BI": curriculum/month-03-visualization-bi.md
+      - "Month 4 — Statistics for DS": curriculum/month-04-statistics.md
+      - "Month 5 — Math for ML": curriculum/month-05-math-for-ml.md
+      - "Month 6 — Supervised ML I": curriculum/month-06-supervised-ml-1.md
+      - "Month 7 — Supervised ML II": curriculum/month-07-supervised-ml-2.md
+      - "Month 8 — Unsupervised + Time Series": curriculum/month-08-unsupervised-time-series.md
+      - "Month 9 — Deep Learning": curriculum/month-09-deep-learning.md
+      - "Month 10 — Domain + Group Project": curriculum/month-10-domain-specialization.md
+      - "Month 11 — Deployment / MLOps": curriculum/month-11-deployment-mlops.md
+      - "Month 12 — Capstone": curriculum/month-12-capstone.md
+  - Projects:
+      - Overview & Portfolio Rules: projects/index.md
+      - "01 · Finance — Risk & Return Dashboard": projects/01-finance-risk-dashboard.md
+      - "02 · Sales — Cohort & Retention": projects/02-sales-cohort-retention.md
+      - "03 · Marketing — Attribution Modeling": projects/03-marketing-attribution.md
+      - "04 · HR — Attrition & Survival": projects/04-hr-attrition-survival.md
+      - "05 · Politics — Democracy & Elections": projects/05-politics-democracy-elections.md
+      - "06 · Gold — Regimes & Drivers": projects/06-gold-commodities-regimes.md
+      - "07 · Oil & Energy — Forecasting": projects/07-oil-energy-forecasting.md
+      - "08 · Real Estate — Home Values": projects/08-real-estate-home-values.md
+  - Resources: resources/index.md
+  - Accountability: accountability/index.md
+  - Mistake Library:
+      - How To Use It: mistake-library/index.md
+      - Running Log: mistake-library/log.md
+  - Tools:
+      - Progress Dashboard: tools/progress-tracker.md
+      - Spaced-Repetition Deck: tools/spaced-repetition-deck.md
+      - Interleaved Drill Bank: tools/interleaved-drills.md
+
+copyright: >
+  Built by Wai · Personal learning system, not affiliated with any cited platform.
