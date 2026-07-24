@@ -49,23 +49,25 @@ Following the [#100DaysOfCode](https://github.com/Kallaway/100-days-of-code) acc
   </div>
 </div>
 
-<div class="vada-checklist-group" data-vada-group-container="months">
-<p>Check off each month once its milestone deliverable has actually shipped — not just "watched the videos."</p>
-<ul style="list-style:none; padding-left:0;">
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-01" data-vada-group="months"> Month 1 — Python &amp; pandas fluency (EDA notebook shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-02" data-vada-group="months"> Month 2 — SQL for analytics (window-function project shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-03" data-vada-group="months"> Month 3 — Visualization &amp; BI (dashboard shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-04" data-vada-group="months"> Month 4 — Statistics for DS (hypothesis-testing notebook shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-05" data-vada-group="months"> Month 5 — Math for ML (from-scratch linear regression shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-06" data-vada-group="months"> Month 6 — Supervised ML I (classification project shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-07" data-vada-group="months"> Month 7 — Supervised ML II (Kaggle entry submitted)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-08" data-vada-group="months"> Month 8 — Unsupervised + time series (clustering + forecast shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-09" data-vada-group="months"> Month 9 — Deep learning basics (one DL project shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-10" data-vada-group="months"> Month 10 — Domain specialization + group project contribution</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-11" data-vada-group="months"> Month 11 — End-to-end deployment / MLOps (deployed API shipped)</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="month-12" data-vada-group="months"> Month 12 — Capstone + portfolio polish (flagship project shipped)</label></li>
-</ul>
-</div>
+??? note "Show the 12-month checklist"
+    Check off each month once its milestone deliverable has actually shipped — not just "watched the videos."
+
+    <div class="vada-checklist-group" data-vada-group-container="months">
+    <ul style="list-style:none; padding-left:0;">
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-01" data-vada-group="months"> Month 1 — Python &amp; pandas fluency (EDA notebook shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-02" data-vada-group="months"> Month 2 — SQL for analytics (window-function project shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-03" data-vada-group="months"> Month 3 — Visualization &amp; BI (dashboard shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-04" data-vada-group="months"> Month 4 — Statistics for DS (hypothesis-testing notebook shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-05" data-vada-group="months"> Month 5 — Math for ML (from-scratch linear regression shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-06" data-vada-group="months"> Month 6 — Supervised ML I (classification project shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-07" data-vada-group="months"> Month 7 — Supervised ML II (Kaggle entry submitted)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-08" data-vada-group="months"> Month 8 — Unsupervised + time series (clustering + forecast shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-09" data-vada-group="months"> Month 9 — Deep learning basics (one DL project shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-10" data-vada-group="months"> Month 10 — Domain specialization + group project contribution</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-11" data-vada-group="months"> Month 11 — End-to-end deployment / MLOps (deployed API shipped)</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="month-12" data-vada-group="months"> Month 12 — Capstone + portfolio polish (flagship project shipped)</label></li>
+    </ul>
+    </div>
 
 ## Projects (8)
 
@@ -76,18 +78,19 @@ Following the [#100DaysOfCode](https://github.com/Kallaway/100-days-of-code) acc
   </div>
 </div>
 
-<div class="vada-checklist-group" data-vada-group-container="projects">
-<ul style="list-style:none; padding-left:0;">
-<li><label><input type="checkbox" class="vada-track" data-vada-id="project-01" data-vada-group="projects"> 01 · Finance — Risk &amp; return dashboard</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="project-02" data-vada-group="projects"> 02 · Sales — Cohort &amp; retention analysis</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="project-03" data-vada-group="projects"> 03 · Marketing — Multi-touch attribution</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="project-04" data-vada-group="projects"> 04 · HR — Attrition &amp; survival analysis</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="project-05" data-vada-group="projects"> 05 · Politics — Democracy &amp; election analysis</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="project-06" data-vada-group="projects"> 06 · Gold — Regime &amp; driver analysis</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="project-07" data-vada-group="projects"> 07 · Oil &amp; Energy — Inventory/price forecasting</label></li>
-<li><label><input type="checkbox" class="vada-track" data-vada-id="project-08" data-vada-group="projects"> 08 · Real Estate — Home value trends &amp; prediction</label></li>
-</ul>
-</div>
+??? note "Show the 8-project checklist"
+    <div class="vada-checklist-group" data-vada-group-container="projects">
+    <ul style="list-style:none; padding-left:0;">
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="project-01" data-vada-group="projects"> 01 · Finance — Risk &amp; return dashboard</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="project-02" data-vada-group="projects"> 02 · Sales — Cohort &amp; retention analysis</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="project-03" data-vada-group="projects"> 03 · Marketing — Multi-touch attribution</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="project-04" data-vada-group="projects"> 04 · HR — Attrition &amp; survival analysis</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="project-05" data-vada-group="projects"> 05 · Politics — Democracy &amp; election analysis</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="project-06" data-vada-group="projects"> 06 · Gold — Regime &amp; driver analysis</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="project-07" data-vada-group="projects"> 07 · Oil &amp; Energy — Inventory/price forecasting</label></li>
+    <li><label><input type="checkbox" class="vada-track" data-vada-id="project-08" data-vada-group="projects"> 08 · Real Estate — Home value trends &amp; prediction</label></li>
+    </ul>
+    </div>
 
 !!! danger "Reset"
     Only use this if you want to start completely over.

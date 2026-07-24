@@ -2,7 +2,7 @@
 
 A 12-month, evidence-based self-learning system for data analytics & data science: a curriculum, eight flagship real-data projects, a learning-science-backed study method (V.A.D.A.++ — Visual map → Apply → Discuss/teach-back → Audio reinforcement), and the interactive tools to actually track it. Built as a static site (MkDocs Material) that deploys free to GitHub Pages.
 
-**Live site:** `https://your-username.github.io/vada-data-science-system/` (update once deployed — see [Deploying](#deploying) below)
+**Live site:** `https://wai-999.github.io/Master-Learning-System/` (goes live once Pages is enabled — see [Deploying](#deploying) below)
 
 ## What's in here
 
@@ -38,10 +38,9 @@ Then open `http://127.0.0.1:8000`. `mkdocs build` produces a static `site/` dire
 
 ## Deploying
 
-1. Create a new GitHub repo and push this folder to it.
-2. Update `repo_url` in `mkdocs.yml` and the live-site link above to match your actual GitHub username/repo.
-3. Push to `main` — the included GitHub Actions workflow (`.github/workflows/deploy.yml`) runs `mkdocs gh-deploy`, which builds the site and pushes it to a `gh-pages` branch automatically.
-4. In the repo's Settings → Pages, set the source to the `gh-pages` branch (first deploy only — after that it's automatic on every push to `main`).
+1. Push this folder to `https://github.com/Wai-999/Master-Learning-System` (see command block below).
+2. Push to `main` — the included GitHub Actions workflow (`.github/workflows/deploy.yml`) runs `mkdocs gh-deploy`, which builds the site and pushes it to a `gh-pages` branch automatically.
+3. In the repo's Settings → Pages, set the source to the `gh-pages` branch (first deploy only — after that it's automatic on every push to `main`).
 
 ## How the tracking tools work
 

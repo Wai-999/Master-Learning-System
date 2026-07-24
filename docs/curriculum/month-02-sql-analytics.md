@@ -15,10 +15,43 @@ From the [Resource Stack](../resources/index.md#sql-for-analytics): Mode's SQL T
 
 ## Week-by-week
 
+Each week has an optional day-by-day breakdown — expand it if useful, or just work off the week-level line.
+
 - [ ] Week 1 — Work through Mode's window-function and CTE sections properly. Don't skim — these are the two constructs that separate "can query a database" from "can do analytics."
+
+??? note "Day-by-day — Week 1"
+    - [ ] Day 1 — Mode: `ROW_NUMBER`/`RANK`/`DENSE_RANK` — write 3 queries using each on a sample table, and predict the tie-handling difference before running them.
+    - [ ] Day 2 — Mode: `LAG`/`LEAD` and running/rolling aggregates.
+    - [ ] Day 3 — Mode: CTEs (`WITH ... AS`) — rebuild yesterday's queries as multi-stage CTEs instead of one-liners.
+    - [ ] Day 4 — Recursive CTEs (at least once, even if you never need them again — it cements what a CTE actually is).
+    - [ ] Day 5 — Teach-back: explain, without notes, why `WHERE` can't reference a `SELECT` alias but `HAVING`/`ORDER BY` can.
+
 - [ ] Week 2 — Kaggle Advanced SQL for more reps on the same constructs against different schemas. Run the SQL set in the [Interleaved Drill Bank](../tools/interleaved-drills.md), blocking any construct that still feels shaky before mixing it in.
+
+??? note "Day-by-day — Week 2"
+    - [ ] Day 1 — Kaggle Advanced SQL, first half — same constructs, unfamiliar schema on purpose.
+    - [ ] Day 2 — Kaggle Advanced SQL, finish it.
+    - [ ] Day 3 — Block-practice: redo any single construct (joins, or window functions, or CTEs) that felt shaky, in isolation, until it's fluent.
+    - [ ] Day 4 — Run the full SQL [interleaved drill set](../tools/interleaved-drills.md) mixed, no blocking.
+    - [ ] Day 5 — Redo only the ones you got wrong, from memory; log any real pattern in the [Mistake Library](../mistake-library/index.md).
+
 - [ ] Week 3 — Pick a dataset with real cohort/time structure (the [Sales/Retention project](../projects/02-sales-cohort-retention.md) or [Marketing/Attribution project](../projects/03-marketing-attribution.md) both fit). Write the cohort-retention query pattern from scratch: first-activity-month CTE → join back to events → month-number window calc → aggregate.
+
+??? note "Day-by-day — Week 3"
+    - [ ] Day 1 — Pick the dataset; write the `cohort_base` CTE (each user/customer's first-activity month) alone, and sanity-check its row count.
+    - [ ] Day 2 — Join activity events back to `cohort_base`; before aggregating, check the row count again — a jump usually means the join multiplied rows.
+    - [ ] Day 3 — Add the `month_number` window calculation (months since first activity).
+    - [ ] Day 4 — Aggregate into the retention table (cohort × month_number); sanity-check that month_number 0 is always 100%.
+    - [ ] Day 5 — Predict which cohort will have the worst retention before charting it — then check (calibration).
+
 - [ ] Week 4 — Write up the analysis (query + findings + a chart), and run `EXPLAIN ANALYZE` on your heaviest query at least once — reason in writing about what the plan tells you.
+
+??? note "Day-by-day — Week 4"
+    - [ ] Day 1 — Build the supporting chart (retention curve or funnel).
+    - [ ] Day 2 — Write up the finding in plain language — what does the pattern actually mean for the business?
+    - [ ] Day 3 — Run `EXPLAIN ANALYZE` on your heaviest query; write one paragraph on what the plan tells you.
+    - [ ] Day 4 — Push the write-up + query to GitHub with a short README.
+    - [ ] Day 5 — Teach-back the whole cohort-query logic out loud, no notes; check the Month 2 box on the [dashboard](../tools/progress-tracker.md).
 
 ## Apply the V.A.D.A.++ loop this month
 
